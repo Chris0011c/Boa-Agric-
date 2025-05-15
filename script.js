@@ -609,10 +609,151 @@ const agriCourses = [
 	},
 ];
 
-// Load More Buttons
-let coursePage = 1;
-let webinarPage = 1;
-let resourcePage = 1;
+const agriWebinars = [
+	{
+		name: "Sustainable Farming Practices",
+		date: "2023-06-15",
+		time: "10:00 AM",
+	},
+	{
+		name: "Organic Crop Production",
+		date: "2023-06-17",
+		time: "2:00 PM",
+	},
+	{
+		name: "Precision Agriculture Technologies",
+		date: "2023-06-20",
+		time: "9:30 AM",
+	},
+	{
+		name: "Soil Health Management",
+		date: "2023-06-22",
+		time: "11:00 AM",
+	},
+	{
+		name: "Hydroponics for Beginners",
+		date: "2023-06-25",
+		time: "3:00 PM",
+	},
+	{
+		name: "Climate-Smart Agriculture",
+		date: "2023-06-28",
+		time: "1:00 PM",
+	},
+	{
+		name: "Agri-Business Marketing Strategies",
+		date: "2023-07-01",
+		time: "10:30 AM",
+	},
+	{
+		name: "Livestock Management Techniques",
+		date: "2023-07-05",
+		time: "4:00 PM",
+	},
+	{
+		name: "Vertical Farming Innovations",
+		date: "2023-07-08",
+		time: "2:30 PM",
+	},
+	{
+		name: "Pest Control in Organic Farming",
+		date: "2023-07-12",
+		time: "9:00 AM",
+	},
+	{
+		name: "Farm-to-Table Supply Chains",
+		date: "2023-07-15",
+		time: "11:30 AM",
+	},
+	{
+		name: "Agricultural Water Management",
+		date: "2023-07-18",
+		time: "3:30 PM",
+	},
+	{
+		name: "Regenerative Agriculture Principles",
+		date: "2023-07-22",
+		time: "1:30 PM",
+	},
+	{
+		name: "Smart Greenhouse Technologies",
+		date: "2023-07-25",
+		time: "10:00 AM",
+	},
+	{
+		name: "Agri-Tech Startups: Opportunities",
+		date: "2023-07-28",
+		time: "4:30 PM",
+	},
+	{
+		name: "Farm Financial Management",
+		date: "2023-08-01",
+		time: "2:00 PM",
+	},
+	{
+		name: "Urban Agriculture Solutions",
+		date: "2023-08-04",
+		time: "9:00 AM",
+	},
+	{
+		name: "Drones in Precision Farming",
+		date: "2023-08-08",
+		time: "11:00 AM",
+	},
+	{
+		name: "Sustainable Livestock Feeding",
+		date: "2023-08-11",
+		time: "3:00 PM",
+	},
+	{
+		name: "Future of Agri-Robotics",
+		date: "2023-08-15",
+		time: "1:00 PM",
+	},
+];
+
+const agricResources = [
+	{
+		name: "Wheat",
+		description: "A cereal grain used for making flour, bread, and other food products.",
+	},
+	{
+		name: "Corn",
+		description: "A staple crop used for food, animal feed, and biofuel production.",
+	},
+	{
+		name: "Rice",
+		description: "A primary food source for over half the world's population",
+	},
+	{
+		name: "Soybeans",
+		description: "Legumes rich in protein, used for animal feed, tofu, and vegetable oil.",
+	},
+	{
+		name: "Potatoes",
+		description: "Starchy tubers that are a dietary staple in many cultures worldwide.",
+	},
+	{
+		name: "Tomatoes",
+		description: "Fruits (often used as vegetables) rich in vitamins and antioxidants.",
+	},
+	{
+		name: "Cotton",
+		description: "A fiber crop used in textile manufacturing, also producing cottonseed oil.",
+	},
+	{
+		name: "Coffee",
+		description: "A tropical crop whose beans are roasted and brewed to make beverages.",
+	},
+	{
+		name: "Apples",
+		description: "Popular temperate fruits consumed fresh or used in cooking and cider.",
+	},
+	{
+		name: "Olive Trees",
+		description: "Mediterranean trees cultivated for their fruit and the oil extracted from them.",
+	},
+];
 
 let pageNumber = 1;
 let pageSize = 10;
@@ -624,37 +765,34 @@ function paginateArray(array, pageSize, pageNumber) {
 }
 
 let loadCourseButton = document.getElementById("loadMoreCourses");
-
 loadCourseButton?.addEventListener("click", () => {
 	pageNumber++;
 	loadCourses(pageNumber);
 });
 
-document.getElementById("loadMoreWebinars")?.addEventListener("click", () => {
-	webinarPage++;
-	loadWebinars(webinarPage);
+let loadWebinarsButton = document.getElementById("loadMoreWebinars");
+loadWebinarsButton?.addEventListener("click", () => {
+	pageNumber++;
+	loadWebinars(pageNumber);
 });
 
-document.getElementById("loadMoreResources")?.addEventListener("click", () => {
-	resourcePage++;
-	loadResources(resourcePage);
+let loadResourceButton = document.getElementById("loadMoreResources");
+loadResourceButton?.addEventListener("click", () => {
+	pageNumber++;
+	loadResources(pageNumber);
 });
 
 // Load Courses
 function loadCourses(page) {
 	const courseGrid = document.getElementById("course-grid");
-	const currentPage = document.getElementById("currentPage");
 
 	const pageItems = paginateArray(agriCourses, pageSize, page);
-
-	currentPage.innerHTML = "";
 
 	for (let i = 0; i < pageItems.length; i++) {
 		const courseItem = document.createElement("div");
 		courseItem.classList.add("col-md-4", "mb-4");
 		courseItem.innerHTML = `
             <div class="card">
-                
                 <div class="card-body">
                     <h5 class="card-title text-truncate">${agriCourses[i].title}</h5>
                     <p class="card-text text-truncate">${agriCourses[i].description}</p>
@@ -662,11 +800,10 @@ function loadCourses(page) {
                 </div>
             </div>
         `;
-		courseGrid.appendChild(courseItem);
+		courseGrid?.appendChild(courseItem);
 	}
 
-	currentPage.innerHTML = pageNumber;
-
+	//Disable the load more button if there are no more items to render
 	if (page * pageSize >= agriCourses.length) {
 		loadCourseButton.disabled = true;
 	}
@@ -677,47 +814,58 @@ function loadCourses(page) {
 // Load Webinars
 function loadWebinars(page) {
 	const webinarGrid = document.getElementById("webinar-grid");
-	for (let i = 0; i < 10; i++) {
+	const pageItems = paginateArray(agriWebinars, pageSize, page);
+
+	for (let i = 0; i < pageItems.length; i++) {
 		const webinarItem = document.createElement("div");
 		webinarItem.classList.add("col-md-4", "mb-4");
 		webinarItem.innerHTML = `
             <div class="card">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Webinar ${(page - 1) * 10 + i + 1}">
                 <div class="card-body">
-                    <h5 class="card-title">Webinar ${(page - 1) * 10 + i + 1}</h5>
-                    <p class="card-text">Date: ${new Date(Date.now() + i * 86400000).toLocaleDateString()} | Time: 10:00 AM</p>
+                    <h5 class="card-title">Webinar ${agriWebinars[i].name}</h5>
+                    <p class="card-text">Date: ${agriWebinars[i].date} | ${agriWebinars[i].time}</p>
                     <a href="#" class="btn btn-success">Register Now</a>
                 </div>
             </div>
         `;
-		webinarGrid.appendChild(webinarItem);
+		webinarGrid?.appendChild(webinarItem);
+	}
+
+	//Disable the load more button if there are no more items to render
+	if (page * pageSize >= agriWebinars.length) {
+		loadWebinarsButton.disabled = true;
 	}
 }
 
 // Load Resources
 function loadResources(page) {
 	const resourceGrid = document.getElementById("resource-grid");
-	for (let i = 0; i < 10; i++) {
+	const pageItems = paginateArray(agricResources, pageSize, page);
+
+	for (let i = 0; i < pageItems.length; i++) {
 		const resourceItem = document.createElement("div");
 		resourceItem.classList.add("col-md-4", "mb-4");
 		resourceItem.innerHTML = `
             <div class="card">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Resource ${(page - 1) * 10 + i + 1}">
                 <div class="card-body">
-                    <h5 class="card-title">Resource ${(page - 1) * 10 + i + 1}</h5>
-                    <p class="card-text">Access the latest research in agriculture.</p>
+                    <h5 class="card-title">${pageItems[i].name}</h5>
+                    <p class="card-text">${pageItems[i].description}</p>
                     <a href="#" class="btn btn-success">Download</a>
                 </div>
             </div>
         `;
-		resourceGrid.appendChild(resourceItem);
+		resourceGrid?.appendChild(resourceItem);
+	}
+	//Disable the load more button if there are no more items to render
+	if (page * pageSize >= agricResources.length) {
+		loadResourceButton.disabled = true;
 	}
 }
 
 // Initial Load
-loadCourses(coursePage);
-loadWebinars(webinarPage);
-loadResources(resourcePage);
+loadCourses(pageNumber);
+loadWebinars(pageNumber);
+loadResources(pageNumber);
 
 // Form Submissions
 document.getElementById("contact-form")?.addEventListener("submit", function (e) {
