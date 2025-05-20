@@ -805,7 +805,9 @@ function loadCourses(page) {
 
 	//Disable the load more button if there are no more items to render
 	if (page * pageSize >= agriCourses.length) {
-		loadCourseButton.disabled = true;
+		if (loadCourseButton !== null) {
+			loadCourseButton.disabled = true;
+		}
 	}
 }
 
@@ -833,7 +835,9 @@ function loadWebinars(page) {
 
 	//Disable the load more button if there are no more items to render
 	if (page * pageSize >= agriWebinars.length) {
-		loadWebinarsButton.disabled = true;
+		if (loadWebinarsButton !== null) {
+			loadWebinarsButton.disabled = true;
+		}
 	}
 }
 
@@ -858,7 +862,9 @@ function loadResources(page) {
 	}
 	//Disable the load more button if there are no more items to render
 	if (page * pageSize >= agricResources.length) {
-		loadResourceButton.disabled = true;
+		if (loadResourceButton !== null) {
+			loadResourceButton.disabled = true;
+		}
 	}
 }
 
@@ -868,13 +874,34 @@ loadWebinars(pageNumber);
 loadResources(pageNumber);
 
 // Form Submissions
-document.getElementById("contact-form")?.addEventListener("submit", function (e) {
-	e.preventDefault();
-	alert("Thank you for contacting us! We will get back to you soon.");
-	this.reset();
-});
+// document.getElementById("contact-form")?.addEventListener("submit", function (e) {
+// 	e.preventDefault();
+// 	alert("Thank you for contacting us! We will get back to you soon.");
+// 	this.reset();
+// });
 
-document.getElementById("login-form")?.addEventListener("submit", function (e) {
-	e.preventDefault();
-	alert("Logged in successfully!");
+// document.getElementById("login-form")?.addEventListener("submit", function (e) {
+// 	e.preventDefault();
+// 	alert("Logged in successfully!");
+// });
+document.addEventListener("DOMContentLoaded", function () {
+	var accessToken = localStorage.getItem("accessToken");
+	if (accessToken === null) {
+		//Hide the links
+		document.getElementById("logoutButton").style.display = "none";
+	} else {
+		//Hide the logout button
+		document.getElementById("signupLink").style.display = "none";
+		document.getElementById("loginLink").style.display = "none";
+	}
+
+	//Handle user logout
+	document.getElementById("logoutButton")?.addEventListener("click", () => {
+		localStorage.removeItem("accessToken");
+		localStorage.removeItem("userId");
+		localStorage.removeItem("userName");
+		localStorage.removeItem("email");
+		alert("user signed out successfully");
+		window.location.reload();
+	});
 });
