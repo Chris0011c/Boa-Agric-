@@ -4,13 +4,13 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-	apiKey: "AIzaSyCyv-j76TI1QXWTqeYFH1F5WA83axx1hUI",
-	authDomain: "agrilean-b9bc0.firebaseapp.com",
-	projectId: "agrilean-b9bc0",
-	storageBucket: "agrilean-b9bc0.firebasestorage.app",
-	messagingSenderId: "240144089166",
-	appId: "1:240144089166:web:3ef3b8332855ab195a431f",
-	measurementId: "G-BM99L1DF56",
+	apiKey: "AIzaSyA1L0FFjlb4DwPNj4Tsu5XpLK3zzuLcGHI",
+	authDomain: "boa-agric.firebaseapp.com",
+	projectId: "boa-agric",
+	storageBucket: "boa-agric.firebasestorage.app",
+	messagingSenderId: "339901042546",
+	appId: "1:339901042546:web:6efd3cccf9f459445117eb",
+	measurementId: "G-PTBNJ27H6D",
 };
 
 const app = initializeApp(firebaseConfig);
